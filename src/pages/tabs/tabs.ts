@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
+import { BookListPage } from '../book-list/book-list';
+import { CdListPage } from '../cd-list/cd-list';
+import { SettingsPage } from '../settings/settings';
 
 @IonicPage()
 @Component({
@@ -7,12 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TabsPage');
-  }
-
+    bookListPage = BookListPage;
+    cdListPage = CdListPage;
+    settingsPage = SettingsPage;
 }
