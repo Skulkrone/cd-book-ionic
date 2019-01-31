@@ -10,7 +10,7 @@
 <ion-content padding>
   <ion-card [ngClass]="{'is-on': cd.isRent, 'is-off': !cd.isRent}">
     <ion-card-header>{{ cd.name }} <br /><br />
-      Groupe : {{ cd.author }}</ion-card-header>
+      Groupe : {{ cd.artist }}</ion-card-header>
     <ion-card-content>
       <p *ngFor="let line of cd.description">{{ line }}</p>
     </ion-card-content>

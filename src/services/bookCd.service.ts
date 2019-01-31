@@ -34,7 +34,7 @@ export class BookCdService {
             name: 'Master Of Puppets',
             artist: 'Metallica',
             description: [
-                'Master of Puppets (littéralement Le Marionnettiste), sorti le 3 mars 19863, est le troisième album studio du groupe de Thrash metal Metallica.'
+                'Master of Puppets (littéralement Le Marionnettiste), sorti le 3 mars 1986, est le troisième album studio du groupe de Thrash metal Metallica.'
             ],
             isRent: true
     },

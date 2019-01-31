@@ -5,16 +5,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
-
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   tabsPage: any = TabsPage;
-  settinsPage: any = SettingsPage;
+  settingsPage: any = SettingsPage;
   @ViewChild('content') content: NavController;
 
-  constructor(platform: Platform,
+  constructor(platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
     private menuCtrl: MenuController) {
