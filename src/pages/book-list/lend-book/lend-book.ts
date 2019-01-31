@@ -1,17 +1,35 @@
-import { Component } from '@angular/core';
-import {  NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavParams, ViewController } from 'ionic-angular';
+import { BookCdService } from '../../../services/bookCd.service';
+import { Books } from '../../../models/Books';
 
 @Component({
   selector: 'page-lend-book',
   templateUrl: 'lend-book.html',
 })
-export class LendBookPage {
+export class LendBookPage implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  book: Books;
+  index: number;
+
+  constructor(public viewCtrl: ViewController,
+     public navParams: NavParams,
+     private bookService: BookCdService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LendBookPage');
+  ngOnInit() {
+    this.index = this.navParams.get('index');
+    this.book = this.bookService.bookList[this.index];
   }
+
+  dismissModal() {
+    this.viewCtrl.dismiss();
+  }
+
+  onToggleBook () {
+    this.book.isRent = !this.book.isRent;
+  }
+
+  
 
 }

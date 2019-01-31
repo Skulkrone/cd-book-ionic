@@ -1,17 +1,33 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavParams, ViewController } from 'ionic-angular';
+import { Cds } from '../../../models/Cds';
+import { BookCdService } from '../../../services/bookCd.service';
 
 @Component({
   selector: 'page-lend-cd',
   templateUrl: 'lend-cd.html',
 })
-export class LendCdPage {
+export class LendCdPage implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  cd: Cds;
+  index: number;
+
+  constructor(public viewCtrl: ViewController,
+     public navParams: NavParams,
+     private cdService: BookCdService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LendCdPage');
+  ngOnInit() {
+    this.index = this.navParams.get('index');
+    this.cd = this.cdService.cdList[this.index];
+  }
+
+  dismissModal() {
+    this.viewCtrl.dismiss();
+  }
+
+  onToggleCd () {
+    this.cd.isRent = !this.cd.isRent;
   }
 
 }

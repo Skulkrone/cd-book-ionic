@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { BookListPage } from '../book-list/book-list';
 import { CdListPage } from '../cd-list/cd-list';
-import { SettingsPage } from '../settings/settings';
 
 @Component({
   selector: 'page-tabs',
@@ -10,5 +9,4 @@ import { SettingsPage } from '../settings/settings';
 export class TabsPage {
     bookListPage = BookListPage;
     cdListPage = CdListPage;
-    settingsPage = SettingsPage;
 }
