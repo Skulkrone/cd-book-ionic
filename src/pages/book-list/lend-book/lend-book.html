@@ -10,26 +10,36 @@
 <ion-content padding>
   <ion-card [ngClass]="{'is-on': book.isRent, 'is-off': !book.isRent}">
     <ion-card-header>{{ book.name }} <br /><br />
-      Auteur : {{ book.author }}</ion-card-header>
+      Auteur : {{ book.author }}<br /><br />
+    Emprunter par : {{ book.renter }} </ion-card-header>
     <ion-card-content>
       <p *ngFor="let line of book.description">{{ line }}</p>
     </ion-card-content>
   </ion-card>
   <ion-grid>
+    <form [formGroup]=bookForm *ngIf="!book.isRent">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Nom de l'emprunteur</ion-label>
+          <ion-input type="text" formControlName="renter"></ion-input>
+        </ion-item>
+      </ion-list>
+    </form>
+
     <ion-row>
-      <ion-col col-8>
+      <ion-col>
         <button ion-button
-         full
-         color="danger"
-         [disabled]="!book.isRent"
-         (click)="onToggleBook()">Prêt</button>
+                full
+                color="danger"
+                [disabled]="book.isRent || (bookForm.invalid)"
+                (click)="onSubmitForm()">Preter</button>
       </ion-col>
-      <ion-col col-4>
+      <ion-col>
         <button ion-button
-        full
-        color="secondary"
-        [disabled]="book.isRent"
-        (click)="onToggleBook()">Rendre</button>
+                full
+                color="secondary"
+                [disabled]="!book.isRent"
+                (click)="onToggleBook()">Rendu</button>
       </ion-col>
     </ion-row>
   </ion-grid>

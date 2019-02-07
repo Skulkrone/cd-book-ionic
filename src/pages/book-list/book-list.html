@@ -14,8 +14,9 @@
       <button ion-item
       icon-start
        *ngFor="let book of bookList; let i = index" (click)="onLoadBook(i)">
-          <ion-icon name="book" [color]="book.isRent ? 'secondary' : 'danger'"></ion-icon>
-          {{ book.name }}
+          <ion-icon name="book" [color]="book.isRent ? 'danger' : 'secondary'"></ion-icon>
+          {{ book.name }} <br />
+          Emprunter par : {{ book.renter }}
       </button>
   </ion-list>
 </ion-content>

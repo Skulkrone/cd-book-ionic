@@ -10,26 +10,36 @@
 <ion-content padding>
   <ion-card [ngClass]="{'is-on': cd.isRent, 'is-off': !cd.isRent}">
     <ion-card-header>{{ cd.name }} <br /><br />
-      Groupe : {{ cd.artist }}</ion-card-header>
+      Groupe : {{ cd.artist }}<br /><br />
+      Emprunter par : {{ cd.renter }}</ion-card-header>
     <ion-card-content>
       <p *ngFor="let line of cd.description">{{ line }}</p>
     </ion-card-content>
   </ion-card>
   <ion-grid>
+    <form [formGroup]=cdForm *ngIf="!cd.isRent">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Nom de l'emprunteur</ion-label>
+          <ion-input type="text" formControlName="renter"></ion-input>
+        </ion-item>
+      </ion-list>
+    </form>
+
     <ion-row>
-      <ion-col col-8>
+      <ion-col>
         <button ion-button
-         full
-         color="danger"
-         [disabled]="!cd.isRent"
-         (click)="onToggleCd()">Prêt</button>
+                full
+                color="danger"
+                [disabled]="cd.isRent || (cdForm.invalid)"
+                (click)="onSubmitForm()">Preter</button>
       </ion-col>
-      <ion-col col-4>
+      <ion-col>
         <button ion-button
-        full
-        color="secondary"
-        [disabled]="cd.isRent"
-        (click)="onToggleCd()">Rendre</button>
+                full
+                color="secondary"
+                [disabled]="!cd.isRent"
+                (click)="onToggleCd()">Rendu</button>
       </ion-col>
     </ion-row>
   </ion-grid>

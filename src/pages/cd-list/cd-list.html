@@ -14,8 +14,9 @@
       <button ion-item
       icon-start
        *ngFor="let cd of cdList; let i = index" (click)="onLoadCd(i)">
-          <ion-icon name="disc" [color]="cd.isRent ? 'secondary' : 'danger'"></ion-icon>
-          {{ cd.name }}
+          <ion-icon name="disc" [color]="cd.isRent ? 'danger' : 'secondary'"></ion-icon>
+          {{ cd.name }}  <br /><br />
+          Emprunter par : {{ cd.renter }}
       </button>
   </ion-list>
 </ion-content>

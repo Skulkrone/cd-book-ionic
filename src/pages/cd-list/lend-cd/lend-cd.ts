@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 import { Cds } from '../../../models/Cds';
 import { BookCdService } from '../../../services/bookCd.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-lend-cd',
@@ -11,23 +12,46 @@ export class LendCdPage implements OnInit {
 
   cd: Cds;
   index: number;
+  cdForm: FormGroup;
 
   constructor(public viewCtrl: ViewController,
      public navParams: NavParams,
-     private cdService: BookCdService) {
+     private cdService: BookCdService,
+     private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.cd = this.navParams.get('cd');
     this.index = this.navParams.get('index');
     this.cd = this.cdService.cdList[this.index];
+
+    !this.cd.isRent ? this.initForm() : null;
+  }
+
+  initForm() {
+    this.cdForm = this.formBuilder.group({
+      renter: ['', [Validators.required, Validators.minLength(1)]]
+    });
+  }
+
+  onSubmitForm() {
+    const renter = this.cdForm.get('renter').value;
+
+    this.cdService.setElement('cd', this.index, renter);
+    this.dismissModal();
   }
 
   dismissModal() {
     this.viewCtrl.dismiss();
   }
 
-  onToggleCd () {
-    this.cd.isRent = !this.cd.isRent;
+  onToggleCd() {
+    if (this.cd.isRent) {
+      this.initForm();
+      this.cdService.setElement('cd', this.index, '');
+    }
+    else
+      this.cdService.setElement('book', this.index, this.cd.renter);
   }
 
 }

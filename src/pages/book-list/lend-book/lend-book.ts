@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 import { BookCdService } from '../../../services/bookCd.service';
 import { Books } from '../../../models/Books';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-lend-book',
@@ -11,25 +12,46 @@ export class LendBookPage implements OnInit {
 
   book: Books;
   index: number;
+  bookForm: FormGroup;
 
   constructor(public viewCtrl: ViewController,
      public navParams: NavParams,
-     private bookService: BookCdService) {
+     private bookService: BookCdService,
+     private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.book = this.navParams.get('book');
     this.index = this.navParams.get('index');
     this.book = this.bookService.bookList[this.index];
+
+    !this.book.isRent ? this.initForm() : null;
+  }
+
+  initForm() {
+    this.bookForm = this.formBuilder.group({
+      renter: ['', [Validators.required, Validators.minLength(1)]]
+    });
+  }
+
+  onSubmitForm() {
+    const renter = this.bookForm.get('renter').value;
+    
+    this.bookService.setElement('book', this.index, renter);
+    this.dismissModal();
   }
 
   dismissModal() {
     this.viewCtrl.dismiss();
   }
 
-  onToggleBook () {
-    this.book.isRent = !this.book.isRent;
+  onToggleBook() {
+    if (this.book.isRent) {
+      this.initForm();
+      this.bookService.setElement('book', this.index, '');
+    }
+    else
+      this.bookService.setElement('book', this.index, this.book.renter);
   }
-
-  
 
 }
