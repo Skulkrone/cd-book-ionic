@@ -25,7 +25,7 @@ export class BookCdService {
                 'C\'est un roman en trois volumes de J. R. R. Tolkien paru en 1954 et 1955. L\'histoire reprend certains des personnages présentés dans Le Hobbit, premier roman de l\'auteur paru en 1937, mais l\'œuvre est plus complexe et plus sombre. Tolkien entreprend sa rédaction à la demande de son éditeur, Allen & Unwin, à la suite du succès critique et commercial du Hobbit. Il lui faut douze ans pour parvenir à achever ce nouveau roman qu\'il truffe de références et d\'allusions au monde du Silmarillion, la Terre du Milieu, sur lequel il travaille depuis 1917 et dans lequel Le Hobbit a été attiré « contre l\'intention première » de son auteur2. '
             ],
             isRent: true,
-            renter: ''
+            renter: '',
     },
     {
             name: 'La Nuit des Temps',
@@ -44,7 +44,7 @@ export class BookCdService {
             ],
             isRent: false,
             renter: '',
-    }
+    },
 ];
 
     cdList : Cds[] = [
@@ -74,7 +74,7 @@ export class BookCdService {
             ],
             isRent: true,
             renter: '',
-    }
+    },
 ];
 
     emitBooks() {

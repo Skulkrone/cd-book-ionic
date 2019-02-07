@@ -53,7 +53,7 @@ export class MyApp {
     });
   }
 
-  onNavigate(page: any, data : {}) {
+  onNavigate(page: any, data ? : {}) {
     this.content.setRoot(page, data ? data : null);
     this.menuCtrl.close();
   }

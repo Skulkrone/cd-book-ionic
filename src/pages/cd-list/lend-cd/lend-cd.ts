@@ -14,18 +14,21 @@ export class LendCdPage implements OnInit {
   index: number;
   cdForm: FormGroup;
 
-  constructor(public viewCtrl: ViewController,
+  constructor(private viewCtrl: ViewController,
      public navParams: NavParams,
      private cdService: BookCdService,
      private formBuilder: FormBuilder) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.cd = this.navParams.get('cd');
     this.index = this.navParams.get('index');
     this.cd = this.cdService.cdList[this.index];
-
-    !this.cd.isRent ? this.initForm() : null;
+    if (!this.cd.isRent){
+      this.initForm()
+    } else {
+      return null;
+    }
   }
 
   initForm() {

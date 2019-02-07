@@ -14,18 +14,21 @@ export class LendBookPage implements OnInit {
   index: number;
   bookForm: FormGroup;
 
-  constructor(public viewCtrl: ViewController,
+  constructor(private viewCtrl: ViewController,
      public navParams: NavParams,
      private bookService: BookCdService,
      private formBuilder: FormBuilder) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.book = this.navParams.get('book');
     this.index = this.navParams.get('index');
     this.book = this.bookService.bookList[this.index];
-
-    !this.book.isRent ? this.initForm() : null;
+    if (!this.book.isRent){
+      this.initForm()
+    } else {
+      return null;
+    }
   }
 
   initForm() {
