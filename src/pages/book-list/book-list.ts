@@ -1,24 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController, MenuController } from 'ionic-angular';
 import { BookCdService } from '../../services/bookCd.service';
 import { Books } from '../../models/Books';
 import { LendBookPage } from './lend-book/lend-book';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-book-list',
   templateUrl: 'book-list.html',
 })
-export class BookListPage {
+export class BookListPage implements OnInit, OnDestroy {
 
   bookList: Books[];
+  bookSubscription: Subscription;
 
   constructor(private modalCtrl: ModalController,
     private bookCdService: BookCdService,
     private menuCtrl: MenuController) {
   }
 
-  ionViewWillEnter() {
-    this.bookList = this.bookCdService.bookList.slice();
+  ngOnInit() {
+    this.bookSubscription = this.bookCdService.books$.subscribe(
+      (books: Books[]) => {
+        this.bookList = books;
+      }
+    );
+    this.bookCdService.emitBooks();
   }
 
   onLoadBook(index :number) {
@@ -30,6 +37,8 @@ export class BookListPage {
     this.menuCtrl.open();
   }
 
-  
+  ngOnDestroy() {
+    this.bookSubscription.unsubscribe();
+  }
 
 }

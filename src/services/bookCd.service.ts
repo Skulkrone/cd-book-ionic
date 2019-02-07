@@ -1,7 +1,15 @@
 import { Books } from '../models/Books';
 import { Cds } from '../models/Cds';
+import { Subject } from 'rxjs/Subject';
+
+import * as firebase from 'firebase';
+import DataSnapshot = firebase.database.DataSnapshot;
 
 export class BookCdService {
+
+    books$ = new Subject<Books[]>();
+    cds$ = new Subject<Cds[]>();
+
     bookList: Books[] = [
         {
             name: 'Le Seigneur des Anneaux',
@@ -55,6 +63,68 @@ export class BookCdService {
             isRent: true
     }
 ];
+
+    emitBooks() {
+        this.books$.next(this.bookList.slice());
+    }
+
+    emitCds() {
+        this.cds$.next(this.cdList.slice());
+    }
+
+    saveBookData() {
+        return new Promise((resolve, reject) => {
+          firebase.database().ref('books').set(this.bookList).then(
+            (data: DataSnapshot) => {
+              resolve(data);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+
+      saveCdData() {
+        return new Promise((resolve, reject) => {
+          firebase.database().ref('cds').set(this.cdList).then(
+            (data: DataSnapshot) => {
+              resolve(data);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+    
+      retrieveBookData() {
+        return new Promise((resolve, reject) => {
+          firebase.database().ref('books').once('value').then(
+            (data: DataSnapshot) => {
+              this.bookList = data.val();
+              this.emitBooks();
+              resolve('Données récupérées avec succès !');
+            }, (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+    
+      retrieveCdData() {
+        return new Promise((resolve, reject) => {
+          firebase.database().ref('cds').once('value').then(
+            (data: DataSnapshot) => {
+              this.cdList = data.val();
+              this.emitCds();
+              resolve('Données récupérées avec succès !');
+            }, (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
 
 
 }

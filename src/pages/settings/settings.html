@@ -12,5 +12,19 @@
 </ion-header>
 
 <ion-content padding>
-  <input type="text" placeholder="Coucou" style="color: #000">
+  <ion-card>
+    <ion-card-header>Données Book</ion-card-header>
+    <ion-card-content>
+        <button ion-button block outline (click)="onSaveBookList()">Enregistrer</button>
+        <button ion-button block outline (click)="onFetchBookList()">Récupérer</button>
+    </ion-card-content>
+</ion-card>
+
+<ion-card>
+  <ion-card-header>Données CD</ion-card-header>
+  <ion-card-content>
+      <button ion-button block outline (click)="onSaveCdList()">Enregistrer</button>
+      <button ion-button block outline (click)="onFetchCdList()">Récupérer</button>
+  </ion-card-content>
+</ion-card>
 </ion-content>
