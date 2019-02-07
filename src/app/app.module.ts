@@ -13,6 +13,8 @@ import { SettingsPage } from '../pages/settings/settings';
 import { BookCdService } from '../services/bookCd.service';
 import { LendBookPage } from '../pages/book-list/lend-book/lend-book';
 import { LendCdPage } from '../pages/cd-list/lend-cd/lend-cd';
+import { AuthService } from '../services/auth.service';
+import { AuthPage } from '../pages/auth/auth';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { LendCdPage } from '../pages/cd-list/lend-cd/lend-cd';
     TabsPage,
     SettingsPage,
     LendBookPage,
-    LendCdPage
+    LendCdPage,
+    AuthPage
   ],
   imports: [
     BrowserModule,
@@ -38,13 +41,15 @@ import { LendCdPage } from '../pages/cd-list/lend-cd/lend-cd';
     TabsPage,
     SettingsPage,
     LendBookPage,
-    LendCdPage
+    LendCdPage,
+    AuthPage
   ],
   providers: [
     StatusBar,
     BookCdService,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthService
   ]
 })
 export class AppModule {}
